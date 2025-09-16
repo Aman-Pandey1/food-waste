@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994783822583",
+    "project_id": "comfoodwasteapp",
+    "storage_bucket": "comfoodwasteapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994783822583:android:1140a38ab7d9c33e3849f2",
+        "android_client_info": {
+          "package_name": "com.foodwasteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqwd064O4GywOWde_bJejpQbpCO65QvOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
