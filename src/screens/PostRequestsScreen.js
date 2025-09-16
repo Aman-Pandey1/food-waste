@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Alert } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, updateDoc, doc } from 'firebase/firestore';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function PostRequestsScreen({ route }) {
   const { postId } = route.params;
@@ -29,20 +33,22 @@ export default function PostRequestsScreen({ route }) {
   };
 
   return (
-    <View style={{ flex: 1, padding: 12 }}>
+    <GradientBackground>
       <FlatList
+        contentContainerStyle={{ padding: theme.spacing.lg }}
         data={requests}
         keyExtractor={(i) => i.id}
         renderItem={({ item }) => (
-          <View style={{ padding: 12, borderWidth: 1, marginBottom: 8 }}>
-            <Text style={{ fontWeight: 'bold' }}>From: {item.distributorName || item.distributorId}</Text>
-            <Text>Status: {item.status}</Text>
-            <Button title="Accept" onPress={() => respond(item.id, 'accepted', item.postId)} />
-            <View style={{height:6}} />
-            <Button title="Decline" onPress={() => respond(item.id, 'declined', item.postId)} />
-          </View>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>From: {item.distributorName || item.distributorId}</Text>
+            <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Status: {item.status}</Text>
+            <View style={{ height: theme.spacing.md }} />
+            <PrimaryButton title="Accept" onPress={() => respond(item.id, 'accepted', item.postId)} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="Decline" onPress={() => respond(item.id, 'declined', item.postId)} />
+          </Card>
         )}
       />
-    </View>
+    </GradientBackground>
   );
 }

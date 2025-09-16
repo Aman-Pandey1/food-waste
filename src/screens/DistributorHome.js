@@ -1,18 +1,28 @@
 import React, { useContext } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function DistributorHome({ navigation }) {
   const { user, userData, logout } = useContext(AuthContext);
 
   return (
-    <View style={{ padding: 16 }}>
-      <Text style={{ fontSize: 18, marginBottom: 8 }}>Welcome, {userData?.name || user?.email}</Text>
-      <Button title="Browse Listings" onPress={() => navigation.navigate('Listings')} />
-      <View style={{ height: 10 }} />
-      <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
-      <View style={{ height: 10 }} />
-      <Button title="Logout" onPress={() => logout()} />
-    </View>
+    <GradientBackground>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Card>
+          <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Distributor Dashboard</Text>
+          <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Welcome, {userData?.name || user?.email}</Text>
+          <View style={{ height: theme.spacing.lg }} />
+          <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Listings')} />
+          <View style={{ height: theme.spacing.md }} />
+          <PrimaryButton title="Profile" onPress={() => navigation.navigate('Profile')} />
+          <View style={{ height: theme.spacing.md }} />
+          <PrimaryButton title="Logout" onPress={logout} />
+        </Card>
+      </View>
+    </GradientBackground>
   );
 }
