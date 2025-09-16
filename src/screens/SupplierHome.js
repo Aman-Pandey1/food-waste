@@ -4,7 +4,7 @@ import GradientBackground from '../components/GradientBackground'
 import Card from '../components/Card'
 import PrimaryButton from '../components/PrimaryButton'
 import { theme } from '../components/Theme'
-import { AuthContext } from '../contexts/AuthProvidor'
+import { AuthContext } from '../contexts/AuthProvider'
 
 const SupplierHome = ({ navigation }) => {
   const { userData, logout } = useContext(AuthContext);

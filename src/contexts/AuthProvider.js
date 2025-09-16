@@ -1,4 +1,4 @@
-// src/context/AuthProvider.js
+// src/contexts/AuthProvider.js
 import React, { createContext, useState, useEffect } from 'react';
 import { auth, db } from '../config/firebase';
 import {
@@ -12,8 +12,8 @@ import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);         // firebase auth user
-  const [userData, setUserData] = useState(null); // firestore user doc (contains role)
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
@@ -52,3 +52,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+

@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { AuthProvider, AuthContext } from './src/contexts/AuthProvidor';
+import { AuthProvider, AuthContext } from './src/contexts/AuthProvider';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import SupplierHome from './src/screens/SupplierHome'

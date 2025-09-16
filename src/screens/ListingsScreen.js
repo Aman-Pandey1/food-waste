@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, FlatList, Text, Alert } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
-import { AuthContext } from '../contexts/AuthProvidor';
+import { AuthContext } from '../contexts/AuthProvider';
 import GradientBackground from '../components/GradientBackground';
 import Card from '../components/Card';
 import PrimaryButton from '../components/PrimaryButton';

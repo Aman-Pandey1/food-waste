@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, TextInput, Text, Alert } from 'react-native';
-import { AuthContext } from '../contexts/AuthProvidor';
+import { AuthContext } from '../contexts/AuthProvider';
 import { db } from '../config/firebase';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import GradientBackground from '../components/GradientBackground';
