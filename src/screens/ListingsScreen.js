@@ -8,7 +8,7 @@ import Card from '../components/Card';
 import PrimaryButton from '../components/PrimaryButton';
 import { theme } from '../components/Theme';
 
-export default function ListingsScreen() {
+export default function ListingsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
   const { user, userData } = useContext(AuthContext);
 
@@ -82,6 +82,8 @@ export default function ListingsScreen() {
             <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
             <View style={{ height: theme.spacing.sm }} />
             <PrimaryButton title="Contact Supplier" onPress={() => contactSupplier(item)} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="View Details" onPress={() => navigation.navigate('PostDetails', { postId: item.id })} />
             {item.ownerPhone ? (
               <>
                 <View style={{ height: theme.spacing.sm }} />
