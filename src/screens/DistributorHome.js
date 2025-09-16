@@ -19,6 +19,7 @@ export default function DistributorHome({ navigation }) {
           </View>
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Distributor Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Welcome, {userData?.name || user?.email}</Text>
+          <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Browse available food and coordinate pickups. See accepted posts under the Accepted tab.</Text>
           <View style={{ height: theme.spacing.lg }} />
           <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Available')} />
           <View style={{ height: theme.spacing.md }} />

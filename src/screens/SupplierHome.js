@@ -18,6 +18,7 @@ const SupplierHome = ({ navigation }) => {
           </View>
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Supplier Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Hi {userData?.name || 'Supplier'}</Text>
+          <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Post surplus food and respond to pickup requests from distributors to reduce waste.</Text>
           <View style={{ height: theme.spacing.lg }} />
           <PrimaryButton title="Post Waste" onPress={() => navigation.navigate('Post')} />
           <View style={{ height: theme.spacing.md }} />
