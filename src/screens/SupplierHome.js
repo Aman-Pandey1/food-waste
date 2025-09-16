@@ -15,11 +15,11 @@ const SupplierHome = ({ navigation }) => {
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Supplier Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Hi {userData?.name || 'Supplier'}</Text>
           <View style={{ height: theme.spacing.lg }} />
-          <PrimaryButton title="Post Waste" onPress={() => navigation.navigate('PostWaste')} />
+          <PrimaryButton title="Post Waste" onPress={() => navigation.navigate('Post')} />
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="My Posts" onPress={() => navigation.navigate('MyPosts')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Profile" onPress={() => navigation.navigate('Profile')} />
+          <PrimaryButton title="Account" onPress={() => navigation.navigate('Account')} />
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="Logout" onPress={logout} />
         </Card>

@@ -16,9 +16,9 @@ export default function DistributorHome({ navigation }) {
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Distributor Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Welcome, {userData?.name || user?.email}</Text>
           <View style={{ height: theme.spacing.lg }} />
-          <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Listings')} />
+          <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Available')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Profile" onPress={() => navigation.navigate('Profile')} />
+          <PrimaryButton title="Account" onPress={() => navigation.navigate('Account')} />
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="Logout" onPress={logout} />
         </Card>

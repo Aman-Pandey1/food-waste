@@ -29,11 +29,12 @@ export default function PostWasteScreen({ navigation }) {
         ownerId: user.uid,
         ownerName: userData?.name || user.email,
         ownerEmail: user.email,
+        ownerPhone: userData?.phone || '',
         status: 'available',
         createdAt: serverTimestamp()
       });
       Alert.alert('Success', 'Waste posted');
-      navigation.goBack();
+      navigation.navigate('MyPosts');
     } catch (e) {
       Alert.alert('Error', e.message);
     } finally {
