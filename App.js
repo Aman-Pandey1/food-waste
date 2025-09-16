@@ -15,6 +15,7 @@ import PostRequestsScreen from './src/screens/PostRequestsScreen';
 import DistributorHome from './src/screens/DistributorHome';
 import ListingsScreen from './src/screens/ListingsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import DistributorAccepted from './src/screens/DistributorAccepted';
 import { ActivityIndicator, View } from 'react-native';
 import { theme } from './src/components/Theme';
 
@@ -79,6 +80,7 @@ function DistributorTabs() {
     >
       <Tab.Screen name="Dashboard" component={DistributorHome} options={{ title: 'Distributor Dashboard', tabBarLabel: 'Dashboard' }} />
       <Tab.Screen name="Available" component={ListingsScreen} options={{ title: 'Food Available', tabBarLabel: 'Available' }} />
+      <Tab.Screen name="Accepted" component={DistributorAccepted} options={{ title: 'Accepted', tabBarLabel: 'Accepted' }} />
       <Tab.Screen name="Account" component={ProfileScreen} options={{ title: 'Account', tabBarLabel: 'Account' }} />
     </Tab.Navigator>
   );
@@ -96,7 +98,7 @@ function AppInner() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer key={user ? (userData?.role || 'auth') : 'guest'}>
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: theme.colors.greenDark },

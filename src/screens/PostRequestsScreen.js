@@ -23,8 +23,8 @@ export default function PostRequestsScreen({ route }) {
     try {
       await updateDoc(doc(db, 'requests', reqId), { status: action });
       if (action === 'accepted') {
-        // also mark post as claimed
-        await updateDoc(doc(db, 'posts', postId), { status: 'claimed', claimedAt: new Date() });
+        // also mark post as claimed and attach distributor id
+        await updateDoc(doc(db, 'posts', postId), { status: 'claimed', claimedBy: reqId, claimedAt: new Date() });
       }
       Alert.alert('Done', `Request ${action}`);
     } catch (e) {
