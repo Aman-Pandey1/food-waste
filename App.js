@@ -3,6 +3,8 @@ import 'react-native-gesture-handler';
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AuthProvider, AuthContext } from './src/contexts/AuthProvider';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
@@ -17,6 +19,70 @@ import { ActivityIndicator, View } from 'react-native';
 import { theme } from './src/components/Theme';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function SupplierTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerStyle: { backgroundColor: theme.colors.greenDark },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '800' },
+        tabBarActiveTintColor: theme.colors.greenDark,
+        tabBarInactiveTintColor: theme.colors.muted,
+        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
+        tabBarIcon: ({ color, size, focused }) => {
+          let iconName = 'home';
+          if (route.name === 'Dashboard') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Post') {
+            iconName = focused ? 'add-circle' : 'add-circle-outline';
+          } else if (route.name === 'MyPosts') {
+            iconName = focused ? 'document-text' : 'document-text-outline';
+          } else if (route.name === 'Account') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        }
+      })}
+    >
+      <Tab.Screen name="Dashboard" component={SupplierHome} options={{ title: 'Supplier Dashboard', tabBarLabel: 'Dashboard' }} />
+      <Tab.Screen name="Post" component={PostWasteScreen} options={{ title: 'Post Food', tabBarLabel: 'Post Food' }} />
+      <Tab.Screen name="MyPosts" component={MyPostsScreen} options={{ title: 'My Posts', tabBarLabel: 'My Posts' }} />
+      <Tab.Screen name="Account" component={ProfileScreen} options={{ title: 'Account', tabBarLabel: 'Account' }} />
+    </Tab.Navigator>
+  );
+}
+
+function DistributorTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerStyle: { backgroundColor: theme.colors.greenDark },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '800' },
+        tabBarActiveTintColor: theme.colors.greenDark,
+        tabBarInactiveTintColor: theme.colors.muted,
+        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
+        tabBarIcon: ({ color, size, focused }) => {
+          let iconName = 'home';
+          if (route.name === 'Dashboard') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Available') {
+            iconName = focused ? 'fast-food' : 'fast-food-outline';
+          } else if (route.name === 'Account') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        }
+      })}
+    >
+      <Tab.Screen name="Dashboard" component={DistributorHome} options={{ title: 'Distributor Dashboard', tabBarLabel: 'Dashboard' }} />
+      <Tab.Screen name="Available" component={ListingsScreen} options={{ title: 'Food Available', tabBarLabel: 'Available' }} />
+      <Tab.Screen name="Account" component={ProfileScreen} options={{ title: 'Account', tabBarLabel: 'Account' }} />
+    </Tab.Navigator>
+  );
+}
 
 function AppInner() {
   const { user, userData, initializing } = useContext(AuthContext);
@@ -45,17 +111,12 @@ function AppInner() {
           </>
         ) : userData?.role === 'supplier' ? (
           <>
-            <Stack.Screen name="SupplierHome" component={SupplierHome} options={{ title: 'Supplier Dashboard' }} />
-            <Stack.Screen name="PostWaste" component={PostWasteScreen} options={{ title: 'Post Waste' }} />
-            <Stack.Screen name="MyPosts" component={MyPostsScreen} options={{ title: 'My Posts' }} />
+            <Stack.Screen name="Supplier" component={SupplierTabs} options={{ headerShown: false }} />
             <Stack.Screen name="PostRequests" component={PostRequestsScreen} options={{ title: 'Requests' }} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
           </>
         ) : (
           <>
-            <Stack.Screen name="DistributorHome" component={DistributorHome} options={{ title: 'Distributor Dashboard' }} />
-            <Stack.Screen name="Listings" component={ListingsScreen} options={{ title: 'Available Waste' }} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="Distributor" component={DistributorTabs} options={{ headerShown: false }} />
           </>
         )}
       </Stack.Navigator>

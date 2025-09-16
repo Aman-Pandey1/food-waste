@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, FlatList, Text, Alert } from 'react-native';
+import { View, FlatList, Text, Alert, Linking } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { AuthContext } from '../contexts/AuthProvider';
@@ -38,6 +38,34 @@ export default function ListingsScreen() {
     }
   };
 
+  const contactSupplier = async (post) => {
+    if (post.ownerEmail) {
+      const subject = encodeURIComponent('Food pickup interest');
+      const body = encodeURIComponent(`Hello ${post.ownerName || ''},\n\nI'm interested in picking up your post: ${post.title} (Qty: ${post.quantity}).\nPlease let me know the best time and contact details.\n\nThanks!`);
+      const url = `mailto:${post.ownerEmail}?subject=${subject}&body=${body}`;
+      try {
+        await Linking.openURL(url);
+      } catch (e) {
+        Alert.alert('Error', 'Unable to open mail app');
+      }
+    } else {
+      Alert.alert('No email available for this supplier');
+    }
+  };
+
+  const callSupplier = async (post) => {
+    if (post.ownerPhone) {
+      const url = `tel:${post.ownerPhone}`;
+      try {
+        await Linking.openURL(url);
+      } catch (e) {
+        Alert.alert('Error', 'Unable to start call');
+      }
+    } else {
+      Alert.alert('No phone number available');
+    }
+  };
+
   return (
     <GradientBackground>
       <FlatList
@@ -49,8 +77,17 @@ export default function ListingsScreen() {
             <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
             <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
             <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
+            {!!item.ownerName && <Text style={{ color: theme.colors.muted }}>Supplier: {item.ownerName}</Text>}
             <View style={{ height: theme.spacing.md }} />
             <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="Contact Supplier" onPress={() => contactSupplier(item)} />
+            {item.ownerPhone ? (
+              <>
+                <View style={{ height: theme.spacing.sm }} />
+                <PrimaryButton title="Call Supplier" onPress={() => callSupplier(item)} />
+              </>
+            ) : null}
           </Card>
         )}
       />
