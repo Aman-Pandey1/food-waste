@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { useContext } from 'react'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import GradientBackground from '../components/GradientBackground'
 import Card from '../components/Card'
 import PrimaryButton from '../components/PrimaryButton'
@@ -12,6 +13,9 @@ const SupplierHome = ({ navigation }) => {
     <GradientBackground>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Card>
+          <View style={{ alignItems: 'center', marginBottom: theme.spacing.sm }}>
+            <Ionicons name="fast-food" size={44} color={theme.colors.greenDark} />
+          </View>
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Supplier Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Hi {userData?.name || 'Supplier'}</Text>
           <View style={{ height: theme.spacing.lg }} />
@@ -19,9 +23,7 @@ const SupplierHome = ({ navigation }) => {
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="My Posts" onPress={() => navigation.navigate('MyPosts')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Account" onPress={() => navigation.navigate('Account')} />
-          <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Logout" onPress={logout} />
+          <PrimaryButton title="Go to Account" onPress={() => navigation.navigate('Account')} />
         </Card>
       </View>
     </GradientBackground>
