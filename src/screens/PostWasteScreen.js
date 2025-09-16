@@ -14,10 +14,13 @@ export default function PostWasteScreen({ navigation }) {
   const [type, setType] = useState('');
   const [quantity, setQuantity] = useState('');
   const [location, setLocation] = useState('');
+  const [contactEmail, setContactEmail] = useState(user?.email || '');
+  const [contactPhone, setContactPhone] = useState(userData?.phone || '');
   const [loading, setLoading] = useState(false);
 
   const handlePost = async () => {
     if (!title || !quantity) return Alert.alert('Error', 'Title aur quantity zaroori hai');
+    if (!contactEmail && !contactPhone) return Alert.alert('Error', 'Please provide at least email or phone');
     setLoading(true);
     try {
       await addDoc(collection(db, 'posts'), {
@@ -28,8 +31,8 @@ export default function PostWasteScreen({ navigation }) {
         description: '',
         ownerId: user.uid,
         ownerName: userData?.name || user.email,
-        ownerEmail: user.email,
-        ownerPhone: userData?.phone || '',
+        ownerEmail: contactEmail,
+        ownerPhone: contactPhone,
         status: 'available',
         createdAt: serverTimestamp()
       });
@@ -51,6 +54,9 @@ export default function PostWasteScreen({ navigation }) {
           <TextInput placeholder="Type (e.g., vegetables)" placeholderTextColor={theme.colors.muted} value={type} onChangeText={setType} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
           <TextInput placeholder="Quantity (kg)" placeholderTextColor={theme.colors.muted} value={quantity} onChangeText={setQuantity} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="numeric" />
           <TextInput placeholder="Location" placeholderTextColor={theme.colors.muted} value={location} onChangeText={setLocation} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
+          <Text style={{ color: theme.colors.muted, marginBottom: 6 }}>Contact Details</Text>
+          <TextInput placeholder="Contact Email" placeholderTextColor={theme.colors.muted} value={contactEmail} onChangeText={setContactEmail} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="email-address" autoCapitalize="none" />
+          <TextInput placeholder="Contact Phone" placeholderTextColor={theme.colors.muted} value={contactPhone} onChangeText={setContactPhone} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="phone-pad" />
           <PrimaryButton title={loading ? 'Posting...' : 'Post Waste'} onPress={handlePost} disabled={loading} loading={loading} />
         </Card>
       </View>
