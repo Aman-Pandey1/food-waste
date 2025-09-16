@@ -1,8 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import { View, TextInput, Alert, Text } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function PostWasteScreen({ navigation }) {
   const { user, userData } = useContext(AuthContext);
@@ -38,12 +42,17 @@ export default function PostWasteScreen({ navigation }) {
   };
 
   return (
-    <View style={{ padding: 16 }}>
-      <TextInput placeholder="Title" value={title} onChangeText={setTitle} style={{borderWidth:1,padding:8,marginBottom:8}} />
-      <TextInput placeholder="Type (e.g., vegetables)" value={type} onChangeText={setType} style={{borderWidth:1,padding:8,marginBottom:8}} />
-      <TextInput placeholder="Quantity (kg)" value={quantity} onChangeText={setQuantity} style={{borderWidth:1,padding:8,marginBottom:8}} keyboardType="numeric" />
-      <TextInput placeholder="Location" value={location} onChangeText={setLocation} style={{borderWidth:1,padding:8,marginBottom:8}} />
-      <Button title={loading ? 'Posting...' : 'Post Waste'} onPress={handlePost} disabled={loading} />
-    </View>
+    <GradientBackground>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Card>
+          <Text style={{ fontSize: 20, fontWeight: '800', color: theme.colors.text, textAlign: 'center', marginBottom: theme.spacing.sm }}>Post Waste</Text>
+          <TextInput placeholder="Title" placeholderTextColor={theme.colors.muted} value={title} onChangeText={setTitle} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
+          <TextInput placeholder="Type (e.g., vegetables)" placeholderTextColor={theme.colors.muted} value={type} onChangeText={setType} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
+          <TextInput placeholder="Quantity (kg)" placeholderTextColor={theme.colors.muted} value={quantity} onChangeText={setQuantity} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="numeric" />
+          <TextInput placeholder="Location" placeholderTextColor={theme.colors.muted} value={location} onChangeText={setLocation} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
+          <PrimaryButton title={loading ? 'Posting...' : 'Post Waste'} onPress={handlePost} disabled={loading} loading={loading} />
+        </Card>
+      </View>
+    </GradientBackground>
   );
 }

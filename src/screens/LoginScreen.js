@@ -1,37 +1,64 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function LoginScreen({ navigation }) {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) return Alert.alert('Error', 'Email aur password darj karo');
+    setLoading(true);
     try {
       await login(email.trim(), password);
-      // onAuthStateChanged will navigate
     } catch (e) {
       Alert.alert('Login error', e.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" />
-      <TextInput placeholder="Password" value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
-      <Button title="Login" onPress={handleLogin} />
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={{ marginTop: 12 }}>
-        <Text style={{ color: 'blue' }}>Create new account</Text>
-      </TouchableOpacity>
-    </View>
+    <GradientBackground>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Card>
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to continue</Text>
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor={theme.colors.muted}
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor={theme.colors.muted}
+            value={password}
+            onChangeText={setPassword}
+            style={styles.input}
+            secureTextEntry
+          />
+          <PrimaryButton title={loading ? 'Please wait...' : 'Login'} onPress={handleLogin} disabled={loading} loading={loading} />
+          <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={{ marginTop: theme.spacing.md, alignItems: 'center' }}>
+            <Text style={{ color: theme.colors.greenDark, fontWeight: '600' }}>Create new account</Text>
+          </TouchableOpacity>
+        </Card>
+      </View>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16, flex: 1, justifyContent: 'center' },
-  title: { fontSize: 22, textAlign: 'center', marginBottom: 12 },
-  input: { borderWidth: 1, padding: 10, borderRadius: 6, marginBottom: 10 },
+  title: { fontSize: 24, textAlign: 'center', marginBottom: 6, fontWeight: '800', color: theme.colors.text },
+  subtitle: { fontSize: 14, textAlign: 'center', marginBottom: 16, color: theme.colors.muted },
+  input: { borderWidth: 1, borderColor: theme.colors.border, padding: 12, borderRadius: 10, marginBottom: 12 },
 });

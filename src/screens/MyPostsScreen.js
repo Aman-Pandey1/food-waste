@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, FlatList, Button, Alert } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, orderBy, doc, updateDoc } from 'firebase/firestore';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function MyPostsScreen({ navigation }) {
   const { user } = useContext(AuthContext);
@@ -30,21 +34,23 @@ export default function MyPostsScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, padding: 12 }}>
+    <GradientBackground>
       <FlatList
+        contentContainerStyle={{ padding: theme.spacing.lg }}
         data={posts}
         keyExtractor={(i) => i.id}
         renderItem={({ item }) => (
-          <View style={{ padding: 12, borderWidth: 1, marginBottom: 8, borderRadius: 6 }}>
-            <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
-            <Text>Qty: {item.quantity}</Text>
-            <Text>Status: {item.status}</Text>
-            <Button title="View Requests" onPress={() => navigation.navigate('PostRequests', { postId: item.id, title: item.title })} />
-            {item.status !== 'completed' && <View style={{height:6}} />}
-            {item.status !== 'completed' && <Button title="Mark Completed" onPress={() => markCompleted(item.id)} />}
-          </View>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
+            <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
+            <Text style={{ color: theme.colors.muted }}>Status: {item.status}</Text>
+            <View style={{ height: theme.spacing.md }} />
+            <PrimaryButton title="View Requests" onPress={() => navigation.navigate('PostRequests', { postId: item.id, title: item.title })} />
+            {item.status !== 'completed' && <View style={{ height: theme.spacing.sm }} />}
+            {item.status !== 'completed' && <PrimaryButton title="Mark Completed" onPress={() => markCompleted(item.id)} />}
+          </Card>
         )}
       />
-    </View>
+    </GradientBackground>
   );
 }

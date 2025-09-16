@@ -14,6 +14,7 @@ import DistributorHome from './src/screens/DistributorHome';
 import ListingsScreen from './src/screens/ListingsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import { ActivityIndicator, View } from 'react-native';
+import { theme } from './src/components/Theme';
 
 const Stack = createStackNavigator();
 
@@ -23,18 +24,24 @@ function AppInner() {
   if (initializing) {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={theme.colors.greenDark} />
       </View>
     );
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: theme.colors.greenDark },
+          headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: '800' }
+        }}
+      >
         {!user ? (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
           </>
         ) : userData?.role === 'supplier' ? (
           <>

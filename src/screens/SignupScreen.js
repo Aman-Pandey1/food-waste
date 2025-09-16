@@ -1,6 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function SignupScreen({ navigation }) {
   const { signup } = useContext(AuthContext);
@@ -25,31 +29,38 @@ export default function SignupScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Signup</Text>
-      <TextInput placeholder="Name" value={name} onChangeText={setName} style={styles.input} />
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" />
-      <TextInput placeholder="Password" value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 8 }}>
-        <TouchableOpacity onPress={() => setRole('supplier')} style={[styles.roleBtn, role === 'supplier' && styles.roleSelected]}>
-          <Text>Supplier</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setRole('distributor')} style={[styles.roleBtn, role === 'distributor' && styles.roleSelected]}>
-          <Text>Distributor</Text>
-        </TouchableOpacity>
+    <GradientBackground>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Card>
+          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.subtitle}>Join as Supplier or Distributor</Text>
+          <TextInput placeholder="Name" placeholderTextColor={theme.colors.muted} value={name} onChangeText={setName} style={styles.input} />
+          <TextInput placeholder="Email" placeholderTextColor={theme.colors.muted} value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
+          <TextInput placeholder="Password" placeholderTextColor={theme.colors.muted} value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 8 }}>
+            <TouchableOpacity onPress={() => setRole('supplier')} style={[styles.roleBtn, role === 'supplier' && styles.roleSelected]}>
+              <Text style={[styles.roleText, role === 'supplier' && styles.roleTextActive]}>Supplier</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setRole('distributor')} style={[styles.roleBtn, role === 'distributor' && styles.roleSelected]}>
+              <Text style={[styles.roleText, role === 'distributor' && styles.roleTextActive]}>Distributor</Text>
+            </TouchableOpacity>
+          </View>
+          <PrimaryButton title={loading ? 'Please wait...' : 'Signup'} onPress={handleSignup} disabled={loading} loading={loading} />
+          <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginTop: theme.spacing.md, alignItems: 'center' }}>
+            <Text style={{ color: theme.colors.greenDark, fontWeight: '600' }}>Already have an account? Login</Text>
+          </TouchableOpacity>
+        </Card>
       </View>
-      <Button title={loading ? 'Please wait...' : 'Signup'} onPress={handleSignup} disabled={loading} />
-      <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginTop: 12 }}>
-        <Text style={{ color: 'blue' }}>Already have an account? Login</Text>
-      </TouchableOpacity>
-    </View>
+    </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16, flex: 1, justifyContent: 'center' },
-  title: { fontSize: 22, textAlign: 'center', marginBottom: 12 },
-  input: { borderWidth: 1, padding: 10, borderRadius: 6, marginBottom: 10 },
-  roleBtn: { padding: 10, borderWidth: 1, borderRadius: 6 },
-  roleSelected: { backgroundColor: '#e6e6e6' },
+  title: { fontSize: 24, textAlign: 'center', marginBottom: 6, fontWeight: '800', color: theme.colors.text },
+  subtitle: { fontSize: 14, textAlign: 'center', marginBottom: 16, color: theme.colors.muted },
+  input: { borderWidth: 1, borderColor: theme.colors.border, padding: 12, borderRadius: 10, marginBottom: 12 },
+  roleBtn: { paddingVertical: 10, paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: '#fff', flex: 1, marginHorizontal: 6, alignItems: 'center' },
+  roleSelected: { borderColor: theme.colors.greenDark, backgroundColor: '#ecfdf5' },
+  roleText: { color: theme.colors.muted, fontWeight: '600' },
+  roleTextActive: { color: theme.colors.greenDark },
 });

@@ -1,8 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, FlatList, Text, Button, Alert } from 'react-native';
+import { View, FlatList, Text, Alert } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 import { AuthContext } from '../contexts/AuthProvidor';
+import GradientBackground from '../components/GradientBackground';
+import Card from '../components/Card';
+import PrimaryButton from '../components/PrimaryButton';
+import { theme } from '../components/Theme';
 
 export default function ListingsScreen() {
   const [posts, setPosts] = useState([]);
@@ -35,20 +39,21 @@ export default function ListingsScreen() {
   };
 
   return (
-    <View style={{ flex: 1, padding: 12 }}>
+    <GradientBackground>
       <FlatList
+        contentContainerStyle={{ padding: theme.spacing.lg }}
         data={posts}
         keyExtractor={(i) => i.id}
         renderItem={({ item }) => (
-          <View style={{ padding: 12, borderWidth: 1, marginBottom: 8 }}>
-            <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
-            <Text>Qty: {item.quantity}</Text>
-            <Text>Location: {item.location}</Text>
-            <View style={{ height: 6 }} />
-            <Button title="Request Pickup" onPress={() => requestPickup(item)} />
-          </View>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
+            <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
+            <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
+            <View style={{ height: theme.spacing.md }} />
+            <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
+          </Card>
         )}
       />
-    </View>
+    </GradientBackground>
   );
 }
