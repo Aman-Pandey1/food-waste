@@ -23,9 +23,7 @@ export default function DistributorHome({ navigation }) {
           <View style={{ height: theme.spacing.lg }} />
           <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Available')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Account" onPress={() => navigation.navigate('Account')} />
-          <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Logout" onPress={logout} />
+          <PrimaryButton title="Go to Account" onPress={() => navigation.navigate('Account')} />
         </Card>
       </View>
     </GradientBackground>

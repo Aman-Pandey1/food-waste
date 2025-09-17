@@ -24,9 +24,7 @@ const SupplierHome = ({ navigation }) => {
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="My Posts" onPress={() => navigation.navigate('MyPosts')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Account" onPress={() => navigation.navigate('Account')} />
-          <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Logout" onPress={logout} />
+          <PrimaryButton title="Go to Account" onPress={() => navigation.navigate('Account')} />
         </Card>
       </View>
     </GradientBackground>

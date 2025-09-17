@@ -31,8 +31,8 @@ export default function PostWasteScreen({ navigation }) {
         description: '',
         ownerId: user.uid,
         ownerName: userData?.name || user.email,
-        ownerEmail: user.email,
-        ownerPhone: userData?.phone || '',
+        ownerEmail: contactEmail,
+        ownerPhone: contactPhone,
         status: 'available',
         createdAt: serverTimestamp()
       });

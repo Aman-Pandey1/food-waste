@@ -78,26 +78,11 @@ export default function ListingsScreen({ navigation }) {
 
   return (
     <GradientBackground>
-      <FlatList
-        contentContainerStyle={{ padding: theme.spacing.lg }}
-        data={posts}
-        keyExtractor={(i) => i.id}
-        renderItem={({ item }) => (
-          <Card style={{ marginBottom: theme.spacing.md }}>
-            <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
-            <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
-            <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
-            {!!item.ownerName && <Text style={{ color: theme.colors.muted }}>Supplier: {item.ownerName}</Text>}
-            <View style={{ height: theme.spacing.md }} />
-            <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
-            <View style={{ height: theme.spacing.sm }} />
-            <PrimaryButton title="Contact Supplier" onPress={() => contactSupplier(item)} />
-            {item.ownerPhone ? (
-              <>
-                <View style={{ height: theme.spacing.sm }} />
-                <PrimaryButton title="Call Supplier" onPress={() => callSupplier(item)} />
-              </>
-            ) : null}
+      {posts.length === 0 ? (
+        <View style={{ flex: 1, justifyContent: 'center', padding: theme.spacing.lg }}>
+          <Card>
+            <Text style={{ fontWeight: '800', fontSize: 18, color: theme.colors.text, textAlign: 'center' }}>No posts available</Text>
+            <Text style={{ color: theme.colors.muted, marginTop: 6, textAlign: 'center' }}>Suppliers will add posts here soon.</Text>
           </Card>
         </View>
       ) : (
