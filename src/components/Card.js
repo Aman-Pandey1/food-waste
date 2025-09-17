@@ -8,11 +8,11 @@ export default function Card({ children, style }) {
     <View
       style={[
         {
-          backgroundColor: 'rgba(255,255,255,0.85)',
+          backgroundColor: theme.colors.card,
           borderRadius: theme.radius.xl,
           padding: theme.spacing.xl,
           borderWidth: 1,
-          borderColor: 'rgba(255,255,255,0.6)',
+          borderColor: theme.colors.border,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 8 },
           shadowOpacity: 0.18,
