@@ -29,24 +29,12 @@ function SupplierTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerBackground: () => <HeaderGradient />,
-        headerTitle: (props) => <LogoHeader title={props.children} />,
+        headerStyle: { backgroundColor: theme.colors.greenDark },
         headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '800' },
         tabBarActiveTintColor: theme.colors.greenDark,
         tabBarInactiveTintColor: theme.colors.muted,
-        tabBarStyle: {
-          position: 'absolute',
-          left: 16,
-          right: 16,
-          bottom: 16,
-          backgroundColor: '#fff',
-          borderRadius: 18,
-          height: 64,
-          paddingBottom: 8,
-          paddingTop: 8,
-          borderTopWidth: 0,
-          elevation: 8,
-        },
+        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
         tabBarIcon: ({ color, size, focused }) => {
           let iconName = 'home';
           if (route.name === 'Dashboard') {
@@ -74,24 +62,12 @@ function DistributorTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerBackground: () => <HeaderGradient />,
-        headerTitle: (props) => <LogoHeader title={props.children} />,
+        headerStyle: { backgroundColor: theme.colors.greenDark },
         headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: '800' },
         tabBarActiveTintColor: theme.colors.greenDark,
         tabBarInactiveTintColor: theme.colors.muted,
-        tabBarStyle: {
-          position: 'absolute',
-          left: 16,
-          right: 16,
-          bottom: 16,
-          backgroundColor: '#fff',
-          borderRadius: 18,
-          height: 64,
-          paddingBottom: 8,
-          paddingTop: 8,
-          borderTopWidth: 0,
-          elevation: 8,
-        },
+        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
         tabBarIcon: ({ color, size, focused }) => {
           let iconName = 'home';
           if (route.name === 'Dashboard') {
@@ -107,7 +83,6 @@ function DistributorTabs() {
     >
       <Tab.Screen name="Dashboard" component={DistributorHome} options={{ title: 'Distributor Dashboard', tabBarLabel: 'Dashboard' }} />
       <Tab.Screen name="Available" component={ListingsScreen} options={{ title: 'Food Available', tabBarLabel: 'Available' }} />
-      <Tab.Screen name="Accepted" component={DistributorAccepted} options={{ title: 'Accepted', tabBarLabel: 'Accepted' }} />
       <Tab.Screen name="Account" component={ProfileScreen} options={{ title: 'Account', tabBarLabel: 'Account' }} />
     </Tab.Navigator>
   );
@@ -142,12 +117,10 @@ function AppInner() {
           <>
             <Stack.Screen name="Supplier" component={SupplierTabs} options={{ headerShown: false }} />
             <Stack.Screen name="PostRequests" component={PostRequestsScreen} options={{ title: 'Requests' }} />
-            <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: 'Post Details' }} />
           </>
         ) : (
           <>
             <Stack.Screen name="Distributor" component={DistributorTabs} options={{ headerShown: false }} />
-            <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: 'Post Details' }} />
           </>
         )}
       </Stack.Navigator>
