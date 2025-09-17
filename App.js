@@ -19,6 +19,8 @@ import PostDetailsScreen from './src/screens/PostDetailsScreen';
 import DistributorAccepted from './src/screens/DistributorAccepted';
 import { ActivityIndicator, View } from 'react-native';
 import { theme } from './src/components/Theme';
+import HeaderGradient from './src/components/HeaderGradient';
+import LogoHeader from './src/components/LogoHeader';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,12 +29,24 @@ function SupplierTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerStyle: { backgroundColor: theme.colors.greenDark },
+        headerBackground: () => <HeaderGradient />,
+        headerTitle: (props) => <LogoHeader title={props.children} />,
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: '800' },
         tabBarActiveTintColor: theme.colors.greenDark,
         tabBarInactiveTintColor: theme.colors.muted,
-        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
+        tabBarStyle: {
+          position: 'absolute',
+          left: 16,
+          right: 16,
+          bottom: 16,
+          backgroundColor: '#fff',
+          borderRadius: 18,
+          height: 64,
+          paddingBottom: 8,
+          paddingTop: 8,
+          borderTopWidth: 0,
+          elevation: 8,
+        },
         tabBarIcon: ({ color, size, focused }) => {
           let iconName = 'home';
           if (route.name === 'Dashboard') {
@@ -60,12 +74,24 @@ function DistributorTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerStyle: { backgroundColor: theme.colors.greenDark },
+        headerBackground: () => <HeaderGradient />,
+        headerTitle: (props) => <LogoHeader title={props.children} />,
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: '800' },
         tabBarActiveTintColor: theme.colors.greenDark,
         tabBarInactiveTintColor: theme.colors.muted,
-        tabBarStyle: { backgroundColor: '#fff', borderTopColor: theme.colors.border },
+        tabBarStyle: {
+          position: 'absolute',
+          left: 16,
+          right: 16,
+          bottom: 16,
+          backgroundColor: '#fff',
+          borderRadius: 18,
+          height: 64,
+          paddingBottom: 8,
+          paddingTop: 8,
+          borderTopWidth: 0,
+          elevation: 8,
+        },
         tabBarIcon: ({ color, size, focused }) => {
           let iconName = 'home';
           if (route.name === 'Dashboard') {
@@ -101,9 +127,9 @@ function AppInner() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: theme.colors.greenDark },
+          headerBackground: () => <HeaderGradient />,
+          headerTitle: (props) => <LogoHeader title={props.children} />,
           headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: '800' }
         }}
       >
         {!user ? (
