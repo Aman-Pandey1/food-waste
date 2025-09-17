@@ -71,6 +71,8 @@ export default function MyPostsScreen({ navigation }) {
             <Text style={{ color: theme.colors.muted }}>Status: {item.status}</Text>
             <View style={{ height: theme.spacing.md }} />
             <PrimaryButton title="View Requests" onPress={() => navigation.navigate('PostRequests', { postId: item.id, title: item.title })} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="View Details" onPress={() => navigation.navigate('PostDetails', { postId: item.id })} />
             {item.status !== 'completed' && <View style={{ height: theme.spacing.sm }} />}
             {item.status !== 'completed' && <PrimaryButton title="Mark Completed" onPress={() => markCompleted(item.id)} />}
           </Card>

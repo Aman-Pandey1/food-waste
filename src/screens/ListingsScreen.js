@@ -89,6 +89,16 @@ export default function ListingsScreen({ navigation }) {
             <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
             <View style={{ height: theme.spacing.md }} />
             <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="Contact Supplier" onPress={() => contactSupplier(item)} />
+            <View style={{ height: theme.spacing.sm }} />
+            <PrimaryButton title="View Details" onPress={() => navigation.navigate('PostDetails', { postId: item.id })} />
+            {item.ownerPhone ? (
+              <>
+                <View style={{ height: theme.spacing.sm }} />
+                <PrimaryButton title="Call Supplier" onPress={() => callSupplier(item)} />
+              </>
+            ) : null}
           </Card>
         )}
       />

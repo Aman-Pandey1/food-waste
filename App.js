@@ -16,7 +16,6 @@ import DistributorHome from './src/screens/DistributorHome';
 import ListingsScreen from './src/screens/ListingsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import PostDetailsScreen from './src/screens/PostDetailsScreen';
-import DistributorAccepted from './src/screens/DistributorAccepted';
 import { ActivityIndicator, View } from 'react-native';
 import { theme } from './src/components/Theme';
 import HeaderGradient from './src/components/HeaderGradient';
@@ -141,10 +140,12 @@ function AppInner() {
           <>
             <Stack.Screen name="Supplier" component={SupplierTabs} options={{ headerShown: false }} />
             <Stack.Screen name="PostRequests" component={PostRequestsScreen} options={{ title: 'Requests' }} />
+            <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: 'Post Details' }} />
           </>
         ) : (
           <>
             <Stack.Screen name="Distributor" component={DistributorTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="PostDetails" component={PostDetailsScreen} options={{ title: 'Post Details' }} />
           </>
         )}
       </Stack.Navigator>
