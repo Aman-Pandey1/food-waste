@@ -19,8 +19,6 @@ import PostDetailsScreen from './src/screens/PostDetailsScreen';
 import DistributorAccepted from './src/screens/DistributorAccepted';
 import { ActivityIndicator, View } from 'react-native';
 import { theme } from './src/components/Theme';
-import HeaderGradient from './src/components/HeaderGradient';
-import LogoHeader from './src/components/LogoHeader';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,12 +98,12 @@ function AppInner() {
   }
 
   return (
-    <NavigationContainer key={user ? (userData?.role || 'auth') : 'guest'}>
+    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerBackground: () => <HeaderGradient />,
-          headerTitle: (props) => <LogoHeader title={props.children} />,
+          headerStyle: { backgroundColor: theme.colors.greenDark },
           headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: '800' }
         }}
       >
         {!user ? (

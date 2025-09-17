@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, TextInput, Alert, Text } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { AuthContext } from '../contexts/AuthProvider';
+import { AuthContext } from '../contexts/AuthProvidor';
 import GradientBackground from '../components/GradientBackground';
 import Card from '../components/Card';
 import PrimaryButton from '../components/PrimaryButton';
@@ -54,9 +54,6 @@ export default function PostWasteScreen({ navigation }) {
           <TextInput placeholder="Type (e.g., vegetables)" placeholderTextColor={theme.colors.muted} value={type} onChangeText={setType} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
           <TextInput placeholder="Quantity (kg)" placeholderTextColor={theme.colors.muted} value={quantity} onChangeText={setQuantity} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="numeric" />
           <TextInput placeholder="Location" placeholderTextColor={theme.colors.muted} value={location} onChangeText={setLocation} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} />
-          <Text style={{ color: theme.colors.muted, marginBottom: 6 }}>Contact Details</Text>
-          <TextInput placeholder="Contact Email" placeholderTextColor={theme.colors.muted} value={contactEmail} onChangeText={setContactEmail} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="email-address" autoCapitalize="none" />
-          <TextInput placeholder="Contact Phone" placeholderTextColor={theme.colors.muted} value={contactPhone} onChangeText={setContactPhone} style={{borderWidth:1,borderColor:theme.colors.border,padding:12,marginBottom:12,borderRadius:10}} keyboardType="phone-pad" />
           <PrimaryButton title={loading ? 'Posting...' : 'Post Waste'} onPress={handlePost} disabled={loading} loading={loading} />
         </Card>
       </View>

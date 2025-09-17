@@ -1,11 +1,10 @@
 import { View, Text } from 'react-native'
 import React, { useContext } from 'react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import GradientBackground from '../components/GradientBackground'
 import Card from '../components/Card'
 import PrimaryButton from '../components/PrimaryButton'
 import { theme } from '../components/Theme'
-import { AuthContext } from '../contexts/AuthProvider'
+import { AuthContext } from '../contexts/AuthProvidor'
 
 const SupplierHome = ({ navigation }) => {
   const { userData, logout } = useContext(AuthContext);
@@ -13,18 +12,16 @@ const SupplierHome = ({ navigation }) => {
     <GradientBackground>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Card>
-          <View style={{ alignItems: 'center', marginBottom: theme.spacing.sm }}>
-            <Ionicons name="fast-food" size={44} color={theme.colors.greenDark} />
-          </View>
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Supplier Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Hi {userData?.name || 'Supplier'}</Text>
-          <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Post surplus food and respond to pickup requests from distributors to reduce waste.</Text>
           <View style={{ height: theme.spacing.lg }} />
-          <PrimaryButton title="Post Waste" onPress={() => navigation.navigate('Post')} />
+          <PrimaryButton title="Post Waste" onPress={() => navigation.navigate('PostWaste')} />
           <View style={{ height: theme.spacing.md }} />
           <PrimaryButton title="My Posts" onPress={() => navigation.navigate('MyPosts')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Go to Account" onPress={() => navigation.navigate('Account')} />
+          <PrimaryButton title="Profile" onPress={() => navigation.navigate('Profile')} />
+          <View style={{ height: theme.spacing.md }} />
+          <PrimaryButton title="Logout" onPress={logout} />
         </Card>
       </View>
     </GradientBackground>

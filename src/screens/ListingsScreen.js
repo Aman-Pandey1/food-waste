@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, FlatList, Text, Alert, Linking } from 'react-native';
+import { View, FlatList, Text, Alert } from 'react-native';
 import { db } from '../config/firebase';
 import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
-import { AuthContext } from '../contexts/AuthProvider';
+import { AuthContext } from '../contexts/AuthProvidor';
 import GradientBackground from '../components/GradientBackground';
 import Card from '../components/Card';
 import PrimaryButton from '../components/PrimaryButton';
@@ -78,41 +78,20 @@ export default function ListingsScreen({ navigation }) {
 
   return (
     <GradientBackground>
-      {posts.length === 0 ? (
-        <View style={{ flex: 1, justifyContent: 'center', padding: theme.spacing.lg }}>
-          <Card>
-            <Text style={{ fontWeight: '800', fontSize: 18, color: theme.colors.text, textAlign: 'center' }}>No posts available</Text>
-            <Text style={{ color: theme.colors.muted, marginTop: 6, textAlign: 'center' }}>Suppliers will add posts here soon.</Text>
+      <FlatList
+        contentContainerStyle={{ padding: theme.spacing.lg }}
+        data={posts}
+        keyExtractor={(i) => i.id}
+        renderItem={({ item }) => (
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
+            <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
+            <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
+            <View style={{ height: theme.spacing.md }} />
+            <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
           </Card>
-        </View>
-      ) : (
-        <FlatList
-          contentContainerStyle={{ padding: theme.spacing.lg }}
-          data={posts}
-          keyExtractor={(i) => i.id}
-          renderItem={({ item }) => (
-            <Card style={{ marginBottom: theme.spacing.md }}>
-              <Text style={{ fontWeight: '800', fontSize: 16, color: theme.colors.text }}>{item.title}</Text>
-              <Text style={{ color: theme.colors.muted, marginTop: 2 }}>Qty: {item.quantity}</Text>
-              <Text style={{ color: theme.colors.muted }}>Location: {item.location}</Text>
-              <Text style={{ color: theme.colors.muted }}>Status: {item.status}</Text>
-              {!!item.ownerName && <Text style={{ color: theme.colors.muted }}>Supplier: {item.ownerName}</Text>}
-              <View style={{ height: theme.spacing.md }} />
-              <PrimaryButton title="Request Pickup" onPress={() => requestPickup(item)} />
-              <View style={{ height: theme.spacing.sm }} />
-              <PrimaryButton title="Contact Supplier" onPress={() => contactSupplier(item)} />
-              <View style={{ height: theme.spacing.sm }} />
-              <PrimaryButton title="View Details" onPress={() => navigation.navigate('PostDetails', { postId: item.id })} />
-              {item.ownerPhone ? (
-                <>
-                  <View style={{ height: theme.spacing.sm }} />
-                  <PrimaryButton title="Call Supplier" onPress={() => callSupplier(item)} />
-                </>
-              ) : null}
-            </Card>
-          )}
-        />
-      )}
+        )}
+      />
     </GradientBackground>
   );
 }

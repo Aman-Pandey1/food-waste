@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { AuthContext } from '../contexts/AuthProvider';
+import { AuthContext } from '../contexts/AuthProvidor';
 import GradientBackground from '../components/GradientBackground';
 import Card from '../components/Card';
 import PrimaryButton from '../components/PrimaryButton';
@@ -14,16 +13,14 @@ export default function DistributorHome({ navigation }) {
     <GradientBackground>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Card>
-          <View style={{ alignItems: 'center', marginBottom: theme.spacing.sm }}>
-            <Ionicons name="nutrition" size={44} color={theme.colors.greenDark} />
-          </View>
           <Text style={{ fontSize: 22, fontWeight: '800', color: theme.colors.text, textAlign: 'center' }}>Distributor Dashboard</Text>
           <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Welcome, {userData?.name || user?.email}</Text>
-          <Text style={{ textAlign: 'center', color: theme.colors.muted, marginTop: 6 }}>Browse available food and coordinate pickups. See accepted posts under the Accepted tab.</Text>
           <View style={{ height: theme.spacing.lg }} />
-          <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Available')} />
+          <PrimaryButton title="Browse Listings" onPress={() => navigation.navigate('Listings')} />
           <View style={{ height: theme.spacing.md }} />
-          <PrimaryButton title="Go to Account" onPress={() => navigation.navigate('Account')} />
+          <PrimaryButton title="Profile" onPress={() => navigation.navigate('Profile')} />
+          <View style={{ height: theme.spacing.md }} />
+          <PrimaryButton title="Logout" onPress={logout} />
         </Card>
       </View>
     </GradientBackground>
