@@ -1,15 +1,19 @@
 // src/components/Theme.js
 export const theme = {
   colors: {
-    greenLight: '#34d399', // emerald 400
-    green: '#10b981',      // emerald 500
-    greenDark: '#059669',  // emerald 600
-    greenDarker: '#047857',
-    background: '#f0fdf4', // green-50
-    card: '#ffffff',
-    text: '#0f172a',       // slate-900
-    muted: '#475569',      // slate-600
-    border: '#e2e8f0',     // slate-200
+    // Brand greens
+    greenLight: '#7fd38a', // soft leaf green for gradients
+    green: '#3aa357',      // primary green
+    greenDark: '#1f7a3a',  // deep green
+    greenDarker: '#155c2b',
+
+    // Cream palette inspired by the design reference
+    background: '#f7f4e9', // warm cream background
+    card: '#fffaf0',       // light cream card
+    text: '#1b2b22',       // deep greenish text for contrast
+    muted: '#5b7164',      // desaturated green-gray
+    border: '#efe9d6',     // soft cream border
+
     danger: '#ef4444',
     success: '#22c55e'
   },
